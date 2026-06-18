@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-[#f8f9fc] text-surface-900 font-sans;
+  }
+
+  ::selection {
+    @apply bg-primary-200 text-primary-900;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary-500;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white rounded-2xl border border-surface-100 shadow-soft transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply card hover:shadow-elevated hover:border-primary-100 hover:-translate-y-0.5 hover:bg-gradient-to-br hover:from-white hover:to-primary-50/30;
+  }
+
+  .card-gradient {
+    @apply bg-gradient-to-br from-white to-primary-50/40 rounded-2xl border border-primary-100/50 shadow-soft;
+  }
+
+  .card-glass {
+    @apply bg-white/70 backdrop-blur-xl rounded-2xl border border-white/30 shadow-elegant;
+  }
+
+  .card-glass-strong {
+    @apply bg-white/80 backdrop-blur-2xl rounded-2xl border border-white/40 shadow-elevated;
+  }
+
+  .input-field {
+    @apply block w-full rounded-xl border border-surface-200 bg-white px-4 py-3 text-sm text-surface-900 placeholder-surface-400 shadow-sm transition-all duration-200;
+  }
+
+  .input-field:focus {
+    @apply border-primary-300 ring-2 ring-primary-500/20 ring-offset-0 outline-none;
+  }
+
+  .input-field-error {
+    @apply input-field border-red-300 ring-2 ring-red-500/20;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-surface-700 mb-1.5;
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  .badge-primary {
+    @apply badge bg-primary-50 text-primary-700;
+  }
+
+  .badge-success {
+    @apply badge bg-emerald-50 text-emerald-700;
+  }
+
+  .badge-warning {
+    @apply badge bg-amber-50 text-amber-700;
+  }
+
+  .badge-danger {
+    @apply badge bg-rose-50 text-rose-700;
+  }
+
+  .badge-secondary {
+    @apply badge bg-surface-100 text-surface-600;
+  }
+
+  .section-title {
+    @apply text-xl font-bold text-surface-900;
+  }
+
+  .section-subtitle {
+    @apply text-sm text-surface-500 mt-0.5;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-primary;
+  }
+
+  .empty-state {
+    @apply flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-surface-200 bg-surface-50/50 py-16 px-6;
+  }
+
+  .divider {
+    @apply border-t border-surface-100;
+  }
+
+  .glow-ring {
+    @apply ring-2 ring-primary-500/20 ring-offset-2 ring-offset-white;
+  }
+
+  .nav-item-active {
+    @apply bg-white/10 text-white shadow-sm border-l-2 border-accent-400;
+  }
+
+  .progress-bar-gradient {
+    @apply bg-gradient-to-r from-primary-500 to-primary-300;
+  }
+
+  .shimmer-overlay {
+    @apply relative overflow-hidden;
+  }
+
+  .shimmer-overlay::after {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmer 2s infinite linear;
+    background-size: 200% 100%;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.surface.300') transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-surface-300 rounded-full;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    @apply bg-surface-400;
+  }
+
+  .skeleton-pulse {
+    @apply relative overflow-hidden bg-surface-100 rounded-xl;
+  }
+
+  .skeleton-pulse::after {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shimmer 2s infinite linear;
+    background-size: 200% 100%;
+  }
+}

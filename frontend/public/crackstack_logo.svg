@@ -1,0 +1,8 @@
+<svg width="100%" viewBox="0 0 680 260" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Crackstack logo</title>
+<path d="M65,185 L150,155 L235,185 L150,215 Z" fill="#04342C"/>
+<path d="M65,150 L150,120 L235,150 L150,180 Z" fill="#0F6E56"/>
+<path d="M65,115 L150,85 L235,115 L150,145 Z" fill="#1D9E75"/>
+<path d="M215,50 L177,98 L197,98 L143,158 L163,158 L97,212" fill="none" stroke="#D85A30" stroke-width="9" stroke-linecap="butt" stroke-linejoin="miter"/>
+<text x="300" y="165" font-family="system-ui, sans-serif" font-size="50" font-weight="600" fill="#141413" letter-spacing="-0.5">Crackstack</text>
+</svg>

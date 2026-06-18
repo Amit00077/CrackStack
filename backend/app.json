@@ -1,0 +1,12 @@
+{
+  "name": "crackstack-backend",
+  "env": "production",
+  "scale": {
+    "min": 2,
+    "max": 10
+  },
+  "health": "/api/v1/health",
+  "port": 8000,
+  "memory": 1024,
+  "cpu": 512
+}
