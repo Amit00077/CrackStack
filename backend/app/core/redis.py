@@ -21,7 +21,7 @@ async def get_redis() -> aioredis.Redis | None:
     if _redis is None and not _redis_unavailable:
         try:
             _redis = aioredis.from_url(
-                settings.REDIS_URL,
+                settings.redis_url,
                 encoding="utf-8",
                 decode_responses=True,
                 socket_connect_timeout=1,

@@ -39,7 +39,9 @@ class Settings(BaseSettings):
     POSTGRES_DB: str = "crackstack"
     DATABASE_URL: Optional[str] = None
 
-    REDIS_URL: str = "redis://localhost:6379/0"
+    REDIS_URL: Optional[str] = None
+    UPSTASH_REDIS_REST_URL: Optional[str] = None
+    UPSTASH_REDIS_REST_TOKEN: Optional[str] = None
 
     GOOGLE_CLIENT_ID: Optional[str] = None
     GOOGLE_CLIENT_SECRET: Optional[str] = None
@@ -91,6 +93,15 @@ class Settings(BaseSettings):
             f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
             f"@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
         )
+
+    @property
+    def redis_url(self) -> str:
+        if self.UPSTASH_REDIS_REST_URL and self.UPSTASH_REDIS_REST_TOKEN:
+            host = self.UPSTASH_REDIS_REST_URL.replace("https://", "").replace("http://", "")
+            return f"rediss://default:{self.UPSTASH_REDIS_REST_TOKEN}@{host}:6379"
+        if self.REDIS_URL:
+            return self.REDIS_URL
+        return "redis://localhost:6379/0"
 
 
 settings = Settings()
