@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import List, Optional
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import field_validator
 
 
 class Settings(BaseSettings):
@@ -22,6 +23,22 @@ class Settings(BaseSettings):
     SERVER_HOST: str = "0.0.0.0"
     SERVER_PORT: int = 8000
     ALLOWED_ORIGINS: List[str] = ["http://localhost:5173", "http://localhost:3000"]
+
+    @field_validator("ALLOWED_ORIGINS", mode="before")
+    @classmethod
+    def parse_allowed_origins(cls, v: object) -> list[str]:
+        if not v:
+            return ["http://localhost:5173", "http://localhost:3000"]
+        if isinstance(v, list):
+            return v
+        import json as _json
+        try:
+            parsed = _json.loads(str(v))
+            if isinstance(parsed, list):
+                return parsed
+        except Exception:
+            pass
+        return [s.strip() for s in str(v).split(",") if s.strip()]
 
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
     REFRESH_TOKEN_EXPIRE_DAYS: int = 30
