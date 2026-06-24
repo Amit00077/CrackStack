@@ -100,8 +100,9 @@ class Settings(BaseSettings):
             if url.startswith("postgresql://"):
                 if "+asyncpg" not in url:
                     url = url.replace("postgresql://", "postgresql+asyncpg://", 1)
-                url = url.replace("?sslmode=require", "?ssl=require")
-                url = url.replace("&sslmode=require", "&ssl=require")
+                idx = url.find("?")
+                if idx != -1:
+                    url = url[:idx]
             return url
         return (
             f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
