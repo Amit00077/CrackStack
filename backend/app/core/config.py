@@ -96,7 +96,10 @@ class Settings(BaseSettings):
     @property
     def database_url(self) -> str:
         if self.DATABASE_URL:
-            return self.DATABASE_URL
+            url = self.DATABASE_URL
+            if url.startswith("postgresql://") and "+asyncpg" not in url:
+                url = url.replace("postgresql://", "postgresql+asyncpg://", 1)
+            return url
         return (
             f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
             f"@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
