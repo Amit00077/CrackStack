@@ -75,6 +75,7 @@ class Settings(BaseSettings):
     SMTP_FROM_EMAIL: Optional[str] = None
 
     FRONTEND_URL: str = "http://localhost:5173"
+    ADMIN_EMAIL: Optional[str] = None
 
     RATE_LIMIT_ENABLED: bool = True
     RATE_LIMIT_DEFAULT: str = "100/minute"

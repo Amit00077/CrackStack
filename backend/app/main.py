@@ -32,6 +32,7 @@ async def lifespan(app: FastAPI):
     setup_scheduler()
     try:
         async with async_session_factory() as db:
+            logger = logging.getLogger(__name__)
             await seed_default_providers(db)
             result = await db.execute(
                 select(RoadmapWeek).where(RoadmapWeek.start_date.is_(None))
@@ -57,6 +58,14 @@ async def lifespan(app: FastAPI):
                     task.day_offset = day + 1
             for goal in (await db.execute(select(Goal).where(Goal.is_active == True))).scalars().all():
                 await sync_active_week(db, goal.user_id, goal.id)
+            if settings.ADMIN_EMAIL:
+                result = await db.execute(
+                    select(User).where(User.email == settings.ADMIN_EMAIL)
+                )
+                admin_user = result.scalar_one_or_none()
+                if admin_user and not admin_user.is_superuser:
+                    admin_user.is_superuser = True
+                    logger.info("Promoted %s to superuser", settings.ADMIN_EMAIL)
             await db.commit()
     except Exception as exc:
         logger = logging.getLogger(__name__)
